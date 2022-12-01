@@ -63,11 +63,24 @@
             margin-bottom: 10px;
         }
     </style>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "http://spartacodingclub.shop/sparta_api/weather/seoul",
+                data: {},
+                success: function (response) {
+                    $('#temp').text(response['temp'])
+                }
+            })
+        });
+    </script>
 </head>
 
 <body>
 <div class="mytitle">
     <h1>the weekend</h1>
+    <p>현재기온 : <span id="temp">00.0</span></p>
 </div>
 <div class="comment-section">
 
@@ -78,7 +91,8 @@
         </div>
 
         <div class="form-floating lg">
-            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"></textarea>
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                      style="height: 100px"></textarea>
             <label for="floatingTextarea">응원 댓글</label>
         </div>
 
