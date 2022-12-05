@@ -12,13 +12,13 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 
     <title>인생 버킷리스트</title>
 
     <style>
         * {
-            font-family: 'Gowun Dodum', sans-serif;
+            font-family: 'Nanum Pen Script', cursive;
         }
 
         .mypic {
@@ -122,7 +122,7 @@
             $.ajax({
                 type: "POST",
                 url: "/bucket",
-                data: {'bucket_give': bucket},
+                data: {bucket_give: bucket},
                 success: function (response) {
                     alert(response["msg"])
                     window.location.reload()
@@ -134,7 +134,7 @@
             $.ajax({
                 type: "POST",
                 url: "/bucket/done",
-                data: {'num_give': num},
+                data: {num_give: num},
                 success: function (response) {
                     alert(response["msg"])
                     window.location.reload()
