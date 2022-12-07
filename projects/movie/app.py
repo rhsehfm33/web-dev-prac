@@ -1,12 +1,16 @@
 from flask import Flask, render_template, request, jsonify
+
 app = Flask(__name__)
 
 import requests
 from bs4 import BeautifulSoup
 
 from pymongo import MongoClient
+
 client = MongoClient('mongodb+srv://test:sparta@cluster0.rvhpcnz.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
+
+from bson.objectid import ObjectId
 
 
 @app.route('/')
@@ -39,12 +43,23 @@ def movie_post():
     }
     db.movies.insert_one(doc)
 
-    return jsonify({'msg':'저장 완료!'})
+    return jsonify({'msg': '저장 완료!'})
+
 
 @app.route("/movie", methods=["GET"])
 def movie_get():
-    movie_list = list(db.movies.find({},{'_id':False}))
+    movie_list = list(db.movies.find())
+    for movie in movie_list:
+        movie['_id'] = str(movie['_id'])
     return jsonify({'movies': movie_list})
+
+
+@app.route("/movie/delete", methods=["POST"])
+def movie_delete():
+    id_receive = request.form['id_give']
+    db.movies.delete_one({'_id': ObjectId(id_receive)})
+    return jsonify({'msg': '삭제 완료!'})
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

@@ -105,8 +105,8 @@
                         let desc = rows[i]['desc']
                         let image = rows[i]['image']
                         let star = rows[i]['star']
-
                         let star_image = '⭐'.repeat(star)
+                        let id = rows[i]['_id'].toString()
 
                         let temp_html = `<div class="col">
                                             <div class="card h-100">
@@ -117,6 +117,7 @@
                                                     <p class="card-text">${desc}</p>
                                                     <p>${star_image}</p>
                                                     <p class="mycomment">${comment}</p>
+                                                    <button onclick="delete_movie('${id}')">삭제</button>
                                                 </div>
                                             </div>
                                         </div>`
@@ -126,6 +127,18 @@
                     console.log(response['movies'])
                 }
             })
+        }
+
+        function delete_movie(id) {
+            $.ajax({
+                type: "POST",
+                url: "/movie/delete",
+                data: {id_give: id},
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            });
         }
 
         function posting() {
